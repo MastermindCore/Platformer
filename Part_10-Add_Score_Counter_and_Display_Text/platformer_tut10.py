@@ -8,8 +8,8 @@ pygame.init()
 clock = pygame.time.Clock()
 fps = 60
 
-screen_width = 1000
-screen_height = 1000
+screen_width = 600
+screen_height = 600
 
 screen = pygame.display.set_mode((screen_width, screen_height))
 pygame.display.set_caption('Platformer')
@@ -21,7 +21,7 @@ font_score = pygame.font.SysFont('Bauhaus 93', 30)
 
 
 #define game variables
-tile_size = 50
+tile_size = 30
 game_over = 0
 main_menu = True
 level = 0
@@ -49,7 +49,7 @@ def draw_text(text, font, text_col, x, y):
 
 #function to reset level
 def reset_level(level):
-	player.reset(100, screen_height - 130)
+	player.reset(100, screen_height - 80)
 	blob_group.empty()
 	lava_group.empty()
 	exit_group.empty()
@@ -108,12 +108,20 @@ class Player():
 			#get keypresses
 			key = pygame.key.get_pressed()
 			if key[pygame.K_SPACE] and self.jumped == False and self.in_air == False:
-				self.vel_y = -15
+				self.vel_y = -18
 				self.jumped = True
 			if key[pygame.K_SPACE] == False:
 				self.jumped = False
+			if key[pygame.K_a]:
+				dx -= 7
+				self.counter += 1
+				self.direction = -1
+			if key[pygame.K_d]:
+				dx += 5
+				self.counter += 1
+				self.direction = 1	
 			if key[pygame.K_LEFT]:
-				dx -= 5
+				dx -= 7
 				self.counter += 1
 				self.direction = -1
 			if key[pygame.K_RIGHT]:
